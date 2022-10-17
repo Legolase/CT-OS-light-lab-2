@@ -1,2 +1,2 @@
 #!/bin/bash
-./iv.res/helper.bash `ps -l -ax | sed "s/ \{2,\}/ /g" | cut -d ' ' -f 3,4 | tail -n +2 | sort -nk2`
+./iv.res/helper.bash `ps aux | sed "s/ \{2,\}/ /g" | cut -d ' ' -f 2` | sort -t$'\t' -nk2 | cut -f 1
