@@ -5,6 +5,8 @@ sleep 1
 
 IFS=$'\n'
 
+st=""
+
 for str in $list
 do
     pid=`echo $str | cut -d ' ' -f1`
@@ -13,6 +15,8 @@ do
     rchar_new=`sudo grep -s "rchar" /proc/$pid/io | cut -d ' ' -f 2`
     if [[ $rchar_new != "" ]]
     then
-        echo "$pid $cmnd $rchar_new - $rchar_old = $(($rchar_new - $rchar_old))"
+        st=$st"$pid $cmnd $(($rchar_new - $rchar_old))\n"
     fi
 done
+
+echo -e $st | sort -nk3 | tr ' ' ':' | tail -n 3
